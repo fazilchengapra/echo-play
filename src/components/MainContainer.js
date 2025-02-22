@@ -1,8 +1,13 @@
 import React from 'react'
+import ButtonList from './ButtonList'
+import VideoCardsContainer from './VideoCardsContainer'
 
 const MainContent = () => {
   return (
-    <div>MainContent</div>
+    <div>
+      <ButtonList/>
+      <VideoCardsContainer/>
+    </div>
   )
 }
 

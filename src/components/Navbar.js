@@ -1,6 +1,6 @@
 import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import { Avatar, Badge } from "@mui/material";
@@ -9,11 +9,15 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleMenu } from "../utils/appSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="p-0 m-0">
-      <AppBar position="static" sx={{ boxShadow: 0}} className="">
+      <AppBar position="static" sx={{ boxShadow: 0 }} className="">
         <Toolbar className="bg-white text-black pb-2">
           <Typography
             sx={{ flexGrow: 1 }}
@@ -21,6 +25,7 @@ const Navbar = () => {
             className="flex gap-3 text-lg items-center"
           >
             <IconButton
+              onClick={() => dispatch(toggleMenu())}
               size="large"
               edge="start"
               color="inherit"
@@ -48,13 +53,16 @@ const Navbar = () => {
             </div>
           </Typography>
           <Typography className="flex gap-5" component={"div"}>
-            <div className="text-gray-800 flex border h-9 items-center w-fit px-3 gap-1 rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer">
+            <div className="text-gray-800 flex h-9 items-center w-fit px-3 gap-1 rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer">
               <AddIcon />
               Create
             </div>
             <IconButton>
               <Badge badgeContent={9} color="error">
-                <NotificationsOutlinedIcon className="text-gray-900" fontSize="30" />
+                <NotificationsOutlinedIcon
+                  className="text-gray-900"
+                  fontSize="30"
+                />
               </Badge>
             </IconButton>
             <Avatar sx={{ width: 34, height: 34, bgcolor: "deepskyblue" }}>

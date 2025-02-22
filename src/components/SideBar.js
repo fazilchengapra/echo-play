@@ -10,6 +10,7 @@ import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import ThumbUpOffAltOutlinedIcon from "@mui/icons-material/ThumbUpOffAltOutlined";
+import { useSelector } from "react-redux";
 
 const main = [
   { label: "Home", component: <HomeIcon /> },
@@ -45,10 +46,12 @@ const subscription = [
   },
 ];
 const SideBar = () => {
+    const isMenuOpen = useSelector(store => store.app.isMenuOpen)
+    if(!isMenuOpen) return null
   return (
     <Box
       component={"div"}
-      className="px-4 flex flex-col gap-3 h-screen overflow-y-auto"
+      className="px-4 flex flex-col gap-3 h-screen overflow-y-auto !pb-14"
     >
       {main.map((item, index) => (
         <div

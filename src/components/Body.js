@@ -5,7 +5,7 @@ import MainContent from "./MainContainer";
 
 const Body = () => {
   return (
-    <div className="grid grid-flow-col">
+    <div className="grid grid-flow-col ">
       <div className="col-span-1">
         <SideBar />
       </div>
