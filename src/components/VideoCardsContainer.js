@@ -17,7 +17,7 @@ const VideoCardsContainer = () => {
   },[])
   return (
     <div className="flex flex-wrap p-5 gap-5 h-screen overflow-y-auto !pb-24">
-      {data?.items?.map(e => <VideoCard data={e}/>)}
+      {data?.items?.map(e => <VideoCard key={e.id} data={e}/>)}
     </div>
   );
 };
