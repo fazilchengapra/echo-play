@@ -8,7 +8,6 @@ const VideoCardsContainer = () => {
       "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=500&regionCode=IN&key=AIzaSyCUtB7MTsNkscmZrD-MuYUVPNYZHLfnGWo"
     );
     const json =await res.json()
-    console.log(json)
     setData(json)
   };
 

@@ -14,7 +14,6 @@ export const formatViews = (views) => {
     const diff = Math.floor(
       (new Date().getTime() - new Date(date).getTime()) / 3600000
     );
-    console.log(diff);
     if (diff >= 8760)
       return (
         Math.floor(diff / 8760) + (diff / 8760 >= 2 ? "years ago" : " year ago")

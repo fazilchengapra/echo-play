@@ -12,7 +12,6 @@ import _ from "lodash";
 import { calculateDate, formatViews } from "../utils/vcardFunctions";
 
 const VideoCard = ({ data }) => {
-  console.log(data);
   const [channelData, setChannelData] = useState(null);
 
   const { channelId, title, channelTitle } = data.snippet;
