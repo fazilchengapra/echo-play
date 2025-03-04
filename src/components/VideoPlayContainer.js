@@ -2,7 +2,7 @@ import React from 'react'
 
 const VideoPlayContainer = () => {
   return (
-    <div>VideoPlayContainer</div>
+    <div className='w-full'>VideoPlayContainer</div>
   )
 }
 

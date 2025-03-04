@@ -8,14 +8,15 @@ import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
-import RestoreIcon from "@mui/icons-material/Restore";
+import RestoreIcon from "@mui/icons-material/Search";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState([]);
+  const [onSelect, setOnselect] = useState(false);
   const fetchQuery = async (query) => {
     const data = await fetch(
       `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${query}`
@@ -27,7 +28,7 @@ const Navbar = () => {
   console.log(query);
 
   return (
-    <div className="p-0 m-0">
+    <div className="p-0 m-0 !w-full">
       <AppBar position="static" sx={{ boxShadow: 0 }}>
         <Toolbar className="bg-white text-black pb-2">
           <Typography
@@ -57,6 +58,8 @@ const Navbar = () => {
               type="text"
               className="border rounded-l-full w-[50%] h-9 outline-none p-4 text-sm text-gray-700 focus:border-blue-400"
               onChange={(e) => fetchQuery(e.target.value)}
+              onFocus={() => setOnselect(true)}
+              onBlur={() => setOnselect(false)}
             />
             <div className="border rounded-r-full h-9 px-2 bg-gray-50 hover:bg-gray-100">
               <IconButton size="small">
@@ -83,11 +86,11 @@ const Navbar = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      {query.length > 0 && (
+      {query.length > 0 && onSelect && (
         <div className="ml-[33%] fixed z-10 w-[33%] bg-white border rounded-md text-start py-2">
           {query?.map((e) => (
             <p className="text-gray-800 py-1 px-5 hover:bg-gray-50 cursor-pointer">
-              <RestoreIcon className="mr-4"/>
+              <RestoreIcon className="mr-4" />
               {e}
             </p>
           ))}
