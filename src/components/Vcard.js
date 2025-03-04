@@ -10,6 +10,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import { calculateDate, formatViews } from "../utils/vcardFunctions";
+import { Link } from "react-router-dom";
 
 const VideoCard = ({ data }) => {
   const [channelData, setChannelData] = useState(null);
@@ -30,6 +31,7 @@ const VideoCard = ({ data }) => {
 
 
   return (
+    <Link to={`/watch?v=${data.id}`}>
     <Card
       sx={{ maxWidth: 385, p: 0, m: 0, border: "none", boxShadow: "none" }}
       className="!rounded-lg"
@@ -74,6 +76,7 @@ const VideoCard = ({ data }) => {
         </Typography>
       </CardContent>
     </Card>
+    </Link>
   );
 };
 
