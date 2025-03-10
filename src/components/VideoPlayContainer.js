@@ -1,22 +1,27 @@
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
+import Description from "./Description";
 
 const VideoPlayContainer = () => {
-  const [searchParams] = useSearchParams()
-  const vId = searchParams.get('v')
-  
+  const location = useLocation();
+  const videoData = location.state.videoData;
+  console.log(videoData);
+
+  const [searchParams] = useSearchParams();
+  const vId = searchParams.get("v");
+
   return (
-    <div className="w-full flex">
-      <div className="p-5 w-2/3">
+    <div className="w-full flex h-screen overflow-y-auto p-0 m-0">
+      <div className="p-5 w-3/5 h-full">
         <iframe
-          className="w-full h-[36rem]"
+          className="w-full h-[30rem] max-h-[80vh]"
           src={`https://www.youtube.com/embed/${vId}?si=Z3supNoabExRB0pw`}
           title="YouTube video player"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
         ></iframe>
+        <Description data={videoData?.snippet} />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const SideBar = () => {
   return (
     <Box
       component={"div"}
-      className="px-4 flex flex-col gap-3 h-screen overflow-y-auto !pb-14"
+      className="px-4 flex flex-col gap-3 h-screen overflow-y-auto"
     >
       {main.map((item, index) => (
         <div

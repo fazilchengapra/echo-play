@@ -31,7 +31,7 @@ const VideoCard = ({ data }) => {
 
 
   return (
-    <Link to={`/watch?v=${data.id}`}>
+    <Link to={`/watch?v=${data.id}`} state={{ videoData: data }}>
     <Card
       sx={{ maxWidth: 385, p: 0, m: 0, border: "none", boxShadow: "none" }}
       className="!rounded-lg"

@@ -25,10 +25,8 @@ const Navbar = () => {
     setQuery(json[1]);
   };
 
-  console.log(query);
-
   return (
-    <div className="p-0 m-0 !w-full">
+    <div className="p-0 m-0 !w-full z-10">
       <AppBar position="static" sx={{ boxShadow: 0 }}>
         <Toolbar className="bg-white text-black pb-2">
           <Typography
