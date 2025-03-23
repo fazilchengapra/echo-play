@@ -9,16 +9,17 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
-import { calculateDate, formatViews } from "../utils/vcardFunctions";
+import { calculateDate, formatCounts } from "../utils/vcardFunctions";
 import { Link } from "react-router-dom";
 
 const VideoCard = ({ data }) => {
+  const API = process.env.REACT_APP_API_KEY;
   const [channelData, setChannelData] = useState(null);
 
   const { channelId, title, channelTitle } = data.snippet;
   const fetchChannel = async () => {
     const res = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=AIzaSyCUtB7MTsNkscmZrD-MuYUVPNYZHLfnGWo`
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${API}`
     );
     const channeldata = await res.json();
     setChannelData(channeldata);
@@ -62,7 +63,7 @@ const VideoCard = ({ data }) => {
                 {channelTitle}
               </Typography>
               <Typography component="p" className="!text-sm">
-                {formatViews(data?.statistics?.viewCount)}
+                {formatCounts(data?.statistics?.viewCount)}
                 {" • "}
                 {calculateDate(data?.snippet?.publishedAt)}
               </Typography>

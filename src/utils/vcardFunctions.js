@@ -1,4 +1,4 @@
-export const formatViews = (views) => {
+export const formatCounts = (views) => {
     if (views >= 1_000_000_000) {
       return Math.floor(views / 1_000_000_000).toFixed(0) + "B";
     } else if (views >= 1_000_000) {
@@ -11,26 +11,22 @@ export const formatViews = (views) => {
   };
 
   export const calculateDate = (date) => {
-    const diff = Math.floor(
-      (new Date().getTime() - new Date(date).getTime()) / 3600000
-    );
-    if (diff >= 8760)
-      return (
-        Math.floor(diff / 8760) + (diff / 8760 >= 2 ? "years ago" : " year ago")
-      );
-    if (diff >= 730.001)
-      return (
-        Math.floor(diff / 730.001) +
-        (diff / 730.001 >= 2 ? " months ago" : " month ago")
-      );
-    if (diff >= 168)
-      return (
-        Math.floor(diff / 168) + (diff / 168 >= 2 ? " weeks ago" : " week ago")
-      );
-    if (diff >= 24)
-      return (
-        Math.floor(diff / 24) + (diff / 24 >= 2 ? " days ago" : " day ago")
-      );
-    if (diff >= 1) return (Math.floor(diff / 1) + (diff/1 >= 2 ?" hours ago":" hour ago"))
-    return Math.floor(diff) + " minutes ago";
+    const now = new Date();
+    const past = new Date(date);
+    const diffMs = now - past; // Difference in milliseconds
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    const diffWeeks = Math.floor(diffDays / 7);
+    const diffMonths = Math.floor(diffDays / 30.44); // Approximate month length
+    const diffYears = Math.floor(diffDays / 365.25); // Considering leap years
+  
+    if (diffYears >= 1) return `${diffYears} ${diffYears > 1 ? "years" : "year"} ago`;
+    if (diffMonths >= 1) return `${diffMonths} ${diffMonths > 1 ? "months" : "month"} ago`;
+    if (diffWeeks >= 1) return `${diffWeeks} ${diffWeeks > 1 ? "weeks" : "week"} ago`;
+    if (diffDays >= 1) return `${diffDays} ${diffDays > 1 ? "days" : "day"} ago`;
+    if (diffHours >= 1) return `${diffHours} ${diffHours > 1 ? "hours" : "hour"} ago`;
+    if (diffMinutes >= 1) return `${diffMinutes} ${diffMinutes > 1 ? "minutes" : "minute"} ago`;
+    return "Just now";
   };
+  

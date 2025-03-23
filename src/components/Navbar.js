@@ -8,22 +8,41 @@ import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import RestoreIcon from "@mui/icons-material/Search";
+import { resultCache, removeLast, movetoTop} from "../utils/searchSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const [value, setValue] = useState("");
   const [query, setQuery] = useState([]);
   const [onSelect, setOnselect] = useState(false);
-  const fetchQuery = async (query) => {
+  const cache = useSelector((store) => store.search);
+
+  const fetchQuery = async () => {
     const data = await fetch(
-      `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${query}`
+      `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${value}`
     );
     const json = await data.json();
     setQuery(json[1]);
+    if(Object.keys(cache).length >= 100) dispatch(removeLast())
+    
+    dispatch(resultCache({[value]: json[1]}))
   };
+
+  useEffect(() => {
+    const time = setTimeout(() => {
+      if (cache[value]) {
+        setQuery(cache[value]);
+        dispatch(movetoTop(value))
+      } else {
+        fetchQuery();
+      }
+    }, 200);
+    return () => clearTimeout(time);
+  }, [value]);
 
   return (
     <div className="p-0 m-0 !w-full z-10">
@@ -54,8 +73,9 @@ const Navbar = () => {
           >
             <input
               type="text"
+              value={value}
               className="border rounded-l-full w-[50%] h-9 outline-none p-4 text-sm text-gray-700 focus:border-blue-400"
-              onChange={(e) => fetchQuery(e.target.value)}
+              onChange={(e) => setValue(e.target.value)}
               onFocus={() => setOnselect(true)}
               onBlur={() => setOnselect(false)}
             />
@@ -87,7 +107,10 @@ const Navbar = () => {
       {query.length > 0 && onSelect && (
         <div className="ml-[33%] fixed z-10 w-[33%] bg-white border rounded-md text-start py-2">
           {query?.map((e) => (
-            <p className="text-gray-800 py-1 px-5 hover:bg-gray-50 cursor-pointer">
+            <p
+              key={e}
+              className="text-gray-800 py-1 px-5 hover:bg-gray-50 cursor-pointer"
+            >
               <RestoreIcon className="mr-4" />
               {e}
             </p>

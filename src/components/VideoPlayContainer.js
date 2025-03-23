@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Description from "./Description";
+import Comments from "./Comments";
 
 const VideoPlayContainer = () => {
   const location = useLocation();
@@ -21,7 +22,8 @@ const VideoPlayContainer = () => {
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
         ></iframe>
-        <Description data={videoData?.snippet} />
+        <Description data={videoData} />
+        <Comments id={videoData.id}/>
       </div>
     </div>
   );

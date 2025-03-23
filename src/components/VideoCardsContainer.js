@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import VideoCard from "./Vcard";
 
 const VideoCardsContainer = () => {
+  const API = process.env.REACT_APP_API_KEY
   const [data, setData] = useState([])
   const fetchData = async() => {
     const res =await fetch(
-      "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=500&regionCode=IN&key=AIzaSyCUtB7MTsNkscmZrD-MuYUVPNYZHLfnGWo"
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=500&regionCode=IN&key=${API}`
     );
     const json =await res.json()
     setData(json)
