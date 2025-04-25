@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const fetchQuery = async () => {
     const data = await fetch(
-      `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${value}`
+      `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${value}`
     );
     const json = await data.json();
     setQuery(json[1]);
